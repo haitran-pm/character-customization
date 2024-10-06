@@ -144,7 +144,7 @@ function App() {
 
   useEffect(() => {
     handleRandomize();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleClickPart = (cat, image) => {
     const position = avatar.findIndex((item) => item.cat === cat);
@@ -158,7 +158,8 @@ function App() {
   const handleRandomize = () => {
     const randomPart = [];
     collections.map((el, index) => {
-      randomPart[index] = el.ids[Math.floor(Math.random() * el.ids.length)];
+      return (randomPart[index] =
+        el.ids[Math.floor(Math.random() * el.ids.length)]);
     });
     randomPart.splice(4, 0, 1); // Add noses to the avatar index #4 with default value=1
     const newAvatar = avatar.map((el, index) => {
