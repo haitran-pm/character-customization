@@ -1,38 +1,148 @@
-.App {
+h1 {
+  color: red;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  margin: 0;
+  background-image: url(../public/static/media/hip-square.png);
+}
+.settings {
+  max-width: 100%;
+}
+.part-list-wrapper {
   text-align: center;
+  margin-bottom: 30px;
+  max-width: 700px;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.part-list-wrapper h2 {
+  color: #a5510d;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.part-list {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: rgba(255, 166, 0, 0.4);
+  border: 5px solid orange;
+  border-radius: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 10px 0;
+  padding: 20px;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.part-item {
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.151);
+  height: 50px;
+  overflow: hidden;
+  position: relative;
+  width: 50px;
+  transition-duration: 0.2s;
+  cursor: pointer;
+}
+.part-item img {
+  left: 50%;
+  position: absolute;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.header {
+  text-align: center;
+  width: 100%;
+}
+.header h1 {
+  color: #0baf94;
+  font-size: 50px;
+  font-weight: 700;
+  text-shadow: 3px 3px #f90;
+  padding: 0;
+  margin: 0;
+}
+.header h2 {
+  color: #f90;
+  font-size: 30px;
+  font-weight: 900;
+  text-shadow: 3px 3px #0baf94;
+  padding: 0;
+  margin: 0;
+}
+.header span.divider {
+  display: inline-block;
+  border-bottom: 4px solid rgba(255, 41, 41, 0.555);
+  height: 1px;
+  margin: 20px auto;
+  width: 50%;
+}
+.avatar-group {
+  background-color: #fff;
+  border: 15px solid #0baf94;
+  border-radius: 40px;
+  display: inline-block;
+  padding: 50px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: calc(50% - 205px);
+}
+.avatar {
+  height: 280px;
+  position: relative;
+  width: 260px;
+}
+img.avatar-part {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 260px;
+}
+.part-item:hover {
+  background-color: hsla(9, 100%, 73%, 0.315);
+}
+.part-item-selected {
+  background-color: rgba(116, 116, 255, 0.315);
+}
+.random-btn {
+  background-color: #ca5119;
+  border: none;
+  border-radius: 15px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  margin: 0 10px;
+  padding: 10px;
+  text-transform: uppercase;
+  text-align: center;
+  display: block;
+  margin: auto;
+}
+.random-btn:hover {
+  background-color: #8b3710;
+}
+.container {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+.main {
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 30px;
+  padding-bottom: 30px;
 }
-
-.App-link {
-  color: #61dafb;
+.avatar-wrapper {
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media (max-width: 1150px) {
+  .main {
+    align-items: center;
+    flex-direction: column;
   }
-  to {
-    transform: rotate(360deg);
+  .avatar-group {
+    padding: 0;
   }
 }
