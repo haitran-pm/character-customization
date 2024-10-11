@@ -4,10 +4,10 @@ import AvatarPart from "./AvatarPart";
 function Avatar({ avatar }) {
   return (
     <div className="avatar">
-      {avatar.map(({ ...part }) => {
+      {Object.entries(avatar).map(([cat, values]) => {
         return (
-          <React.Fragment key={`${part.cat}_${part.image}`}>
-            <AvatarPart part={part} />
+          <React.Fragment key={`${cat}_${values.image}`}>
+            <AvatarPart part={{ cat, ...values }} />
           </React.Fragment>
         );
       })}

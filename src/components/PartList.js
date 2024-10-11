@@ -1,17 +1,13 @@
 import React from "react";
 import PartItem from "./PartItem";
 
-function PartList({
-  part: { title, ids, ...part },
-  handleClickPart,
-  selectedPart,
-}) {
-  if (ids.length === 0) return;
+function PartList({ part, handleClickPart, selectedPart }) {
+  const ids = Array.from(Array(part.length), (_, i) => i + 1);
   return (
     <div className="part-list-wrapper">
-      <h2>{title}</h2>
+      <h2>{part.title}</h2>
       <div className="part-list">
-        {ids.map((item, index) => {
+        {ids.map((item) => {
           return (
             <React.Fragment key={item}>
               <PartItem

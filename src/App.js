@@ -1,181 +1,150 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import PartList from "./PartList";
-import Avatar from "./Avatar";
+import PartList from "./components/PartList";
+import Avatar from "./components/Avatar";
+import Header from "./components/Header";
+
+const preset = {
+  body: {
+    title: "Body",
+    folder: "./character/body/",
+    length: 17,
+    height: 60,
+    top: "50%",
+  },
+  eyes: {
+    title: "Eyes",
+    folder: "./character/eyes/",
+    length: 24,
+    height: 150,
+    top: "35px",
+  },
+  hair: {
+    title: "Hair",
+    folder: "./character/hair/",
+    length: 73,
+    height: 60,
+    top: "50%",
+  },
+  mouths: {
+    title: "Mouths",
+    folder: "./character/mouths/",
+    length: 24,
+    height: 120,
+    top: "50%",
+  },
+  eyebrows: {
+    title: "Eyebrows",
+    folder: "./character/eyebrows/",
+    length: 15,
+    height: 60,
+    top: "50%",
+  },
+  glasses: {
+    title: "Glasses",
+    folder: "./character/accessories/glasses/",
+    length: 15,
+    height: 60,
+    top: "50%",
+  },
+  layer_1: {
+    title: "Clothing (L1)",
+    folder: "./character/clothes/layer_1/",
+    length: 5,
+    height: 60,
+    top: "50%",
+  },
+  layer_2: {
+    title: "Clothing (L2)",
+    folder: "./character/clothes/layer_2/",
+    length: 5,
+    height: 60,
+    top: "50%",
+  },
+  layer_3: {
+    title: "Clothing (L3)",
+    folder: "./character/clothes/layer_3/",
+    length: 9,
+    height: 60,
+    top: "-15px",
+  },
+};
 
 function App() {
-  const [avatar, setAvatar] = useState([
-    {
-      cat: "body",
-      subcat: "",
+  const [avatar, setAvatar] = useState({
+    body: {
+      folder: "./character/body/",
       image: 1,
       z_index: 0,
     },
-    {
-      cat: "eyes",
-      subcat: "",
+    eyes: {
+      folder: "./character/eyes/",
       image: 1,
       z_index: 1,
     },
-    {
-      cat: "hair",
-      subcat: "",
+    hair: {
+      folder: "./character/hair/",
       image: 1,
       z_index: 2,
     },
-    {
-      cat: "mouths",
-      subcat: "",
+    mouths: {
+      folder: "./character/mouths/",
       image: 1,
       z_index: 3,
     },
-    {
-      cat: "noses",
-      subcat: "",
+    noses: {
+      folder: "./character/noses/",
       image: 1,
       z_index: 4,
     },
-    {
-      cat: "eyebrows",
-      subcat: "",
+    eyebrows: {
+      folder: "./character/eyebrows/",
       image: 1,
       z_index: 5,
     },
-    {
-      cat: "glasses",
-      subcat: "accessories",
+    glasses: {
+      folder: "./character/accessories/glasses/",
       image: 1,
       z_index: 6,
     },
-    {
-      cat: "layer_1",
-      subcat: "clothes",
+    layer_1: {
+      folder: "./character/clothes/layer_1/",
       image: 1,
       z_index: 7,
     },
-    {
-      cat: "layer_2",
-      subcat: "clothes",
+    layer_2: {
+      folder: "./character/clothes/layer_2/",
       image: 1,
       z_index: 8,
     },
-    {
-      cat: "layer_3",
-      subcat: "clothes",
+    layer_3: {
+      folder: "./character/clothes/layer_3/",
       image: 1,
       z_index: 9,
     },
-  ]);
-
-  const collections = [
-    {
-      title: "Body",
-      cat: "body",
-      subcat: "",
-      ids: Array.from(Array(17), (_, i) => i + 1),
-      height: 60,
-      top: "50%",
-    },
-    {
-      title: "Eyes",
-      cat: "eyes",
-      subcat: "",
-      ids: Array.from(Array(24), (_, i) => i + 1),
-      height: 150,
-      top: "35px",
-    },
-    {
-      title: "Hair",
-      cat: "hair",
-      subcat: "",
-      ids: Array.from(Array(73), (_, i) => i + 1),
-      height: 60,
-      top: "50%",
-    },
-    {
-      title: "Mouths",
-      cat: "mouths",
-      subcat: "",
-      ids: Array.from(Array(24), (_, i) => i + 1),
-      height: 120,
-      top: "50%",
-    },
-    {
-      title: "Eyebrows",
-      cat: "eyebrows",
-      subcat: "",
-      ids: Array.from(Array(15), (_, i) => i + 1),
-      height: 60,
-      top: "50%",
-    },
-    {
-      title: "Glasses",
-      cat: "glasses",
-      subcat: "accessories",
-      ids: Array.from(Array(15), (_, i) => i + 1),
-      height: 60,
-      top: "50%",
-    },
-    {
-      title: "Clothing (L1)",
-      cat: "layer_1",
-      subcat: "clothes",
-      ids: Array.from(Array(5), (_, i) => i + 1),
-      height: 60,
-      top: "50%",
-    },
-    {
-      title: "Clothing (L2)",
-      cat: "layer_2",
-      subcat: "clothes",
-      ids: Array.from(Array(5), (_, i) => i + 1),
-      height: 60,
-      top: "50%",
-    },
-    {
-      title: "Clothing (L3)",
-      cat: "layer_3",
-      subcat: "clothes",
-      ids: Array.from(Array(9), (_, i) => i + 1),
-      height: 120,
-      top: "-15px",
-    },
-  ];
+  });
 
   useEffect(() => {
     handleRandomize();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleClickPart = (cat, image) => {
-    const position = avatar.findIndex((item) => item.cat === cat);
-    const newPart = avatar.filter((item, index) => index === position)[0];
-    newPart.image = image;
-    avatar[position] = newPart;
-    const newAvatar = [...avatar];
+    const newAvatar = { ...avatar };
+    newAvatar[cat].image = image;
     setAvatar(newAvatar);
   };
 
   const handleRandomize = () => {
-    const randomPart = [];
-    collections.map((el, index) => {
-      return (randomPart[index] =
-        el.ids[Math.floor(Math.random() * el.ids.length)]);
-    });
-    randomPart.splice(4, 0, 1); // Add noses to the avatar index #4 with default value=1
-    const newAvatar = avatar.map((el, index) => {
-      el.image = randomPart[index];
-      return el;
+    const newAvatar = { ...avatar };
+    Object.entries(preset).forEach(([cat, values]) => {
+      newAvatar[cat].image = Math.ceil(Math.random() * values.length);
     });
     setAvatar(newAvatar);
   };
 
   return (
     <div className="container">
-      <div className="header">
-        <h1>CHARACTER</h1>
-        <h2>🛠️CUSTOMIZATION🛠️</h2>
-        <span className="divider"></span>
-      </div>
+      <Header />
       <div className="main">
         <div className="avatar-wrapper">
           <div className="avatar-group">
@@ -186,15 +155,13 @@ function App() {
           </div>
         </div>
         <div className="settings">
-          {collections.map((item, index) => {
+          {Object.entries(preset).map(([cat, values]) => {
             return (
               <PartList
-                key={`${item.cat}_${index}`}
-                part={item}
+                key={`${cat}`}
+                part={{ cat, ...values }}
                 handleClickPart={handleClickPart}
-                selectedPart={
-                  avatar[avatar.findIndex((el) => el.cat === item.cat)].image
-                }
+                selectedPart={avatar[cat].image}
               />
             );
           })}
